@@ -20,8 +20,8 @@
 			<div class="text-about col-sm-7 col-sm-offset-1 col-md-offset-0">
 				<?php echo nl2br(get_post_meta(get_the_ID(),'jp_about', true)); ?>
 
-				<!-- <div class="btn-groupe"><button type="button" class="btn btn-download btn-primary col-md-3" data-toggle="modal" data-target="#myCv">Aperçu du CV</button></div> -->
-				<div class="btn-groupe"><a type="button" href="<?php echo get_template_directory_uri(); ?>/assets/img/cv_jp.pdf" class="btn btn-download btn-primary col-md-2">Voir mon cv</a></div>
+				<div class="btn-groupe"><a type="button" href="<?php echo get_template_directory_uri(); ?>/assets/img/bio_francisco.pdf" class="btn btn-download btn-primary col-md-3">Biographie complète</a></div>
+				<div class="btn-groupe"><a type="button" href="<?php echo get_template_directory_uri(); ?>/assets/img/cv_jp.pdf" class="btn btn-download btn-primary col-md-offset-1 col-md-2">Voir mon cv</a></div>
 				<!-- Modal -->
 				<!--<div class="modal fade" id="myCv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				  <div class="modal-dialog" role="document">
@@ -58,9 +58,13 @@
 				<h2 class="title-project col-md-offset-1 col-sm-offset-1 col-md-12"><?php echo $project->post_title; ?></h2>
 				<div class="col-md-4 col-md-offset-1 project-video">
 					<?php $urlvideo =  get_post_meta($project->ID,'jp_projet_url', true); ?>			
-					<iframe width="420" height="215"
+					<!--<iframe width="420" height="215"
 					src="<?php echo $urlvideo ; ?>">
-					</iframe>
+					</iframe>-->
+					<video class="sapiance-video" controls preload poster="<?php echo get_template_directory_uri(); ?>/assets/img/video/webvideo/stage1.jpg">
+				      <source src="<?php echo get_template_directory_uri(); ?>/assets/img/video/webvideo/stage1.webm" type="video/webm" >
+				      <source src="<?php echo get_template_directory_uri(); ?>/assets/img/video/webvideo/stage1.m4v" type="video/mp4" >
+				    </video>
 				</div>
 				<div class="col-md-6 col-md-offset-1 text-project">
 					<p class="project-paragraphe"> 
@@ -78,20 +82,22 @@
 			<h1 class="title-section col-md-offset-1 col-sm-offset-1 col-md-3">Diplôme</h1>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-md-offset-1">
-				<div class="diplome-filter"></div>
-				<img class="img-diplome" src="<?php echo get_template_directory_uri(); ?>/assets/img/jp_diplome.png">
-			</div>
+			<a href="<?php echo get_template_directory_uri(); ?>/assets/img/diplome_etat.pdf"> 
+				<div class="col-md-6 col-xs-12 col-md-offset-1">
+					<!-- <div class="diplome-filter"></div> -->
+					<img class="img-diplome" src="<?php echo get_template_directory_uri(); ?>/assets/img/dipl-etat.png">
+				</div>
+			</a>
 			<div class="col-md-4 col-md-offset-1">
 				<h2 class="title-diplome">Diplôme d'etat</h2>
 					<!-- <div class="col-md-3 btn-diplome diplome-left"><a href="<?php echo get_template_directory_uri(); ?>/assets/img/jp_diplome.png">voir</a></div> -->
-					<div class="btn-groupe"><a type="button" href="<?php echo get_template_directory_uri(); ?>/assets/img/cv_jp.pdf" class="btn btn-download btn-primary col-md-2">Voir</a></div>
+					<div class="btn-groupe"><a type="button" href="<?php echo get_template_directory_uri(); ?>/assets/img/diplome_etat.pdf" class="btn btn-download btn-primary col-md-2">Voir</a></div>
 					<!-- <button type="button" class="col-md-4 btn-diplome diplome-right">Télécharger</button> -->
 			</div>
 		</div>
 	</div>
 </section>
-<div class="triangle"></div>
+<!-- <div class="triangle"></div>
 <section class="section-stage" id="stage">
 	<div class="container">
 		<div class="row">
@@ -112,13 +118,14 @@
 			</div>
 			<div class="col-md-4 col-vid-stage">
 				<iframe width="380" height="200"
-				src="http://www.youtube.com/embed/GqtQoMgkh_Q?autoplay=0">
+				src="http://www.youtube.com/embed/euUr6wXj7Qc?autoplay=0">
 				</iframe>
 				<p>Sed tamen haec cum ita tutius observentur, quidam vigore artuum inminuto rogati ad</p>
 			</div>
 		</div>
 	</div>
-</section>
+</section>-->
+<div class="triangle"></div>
 <section class="section-date" id="date">
 	<div class="container">
 		<div class="row">
@@ -133,6 +140,10 @@
 				<?php echo nl2br(get_post_meta(get_the_ID(),'jp_dates_stage', true)); ?>
 			</div>
 		</div>
+	</div>
+</section>
+<section class="deroulement-stage">
+	<div class="container">	
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 stage-about">
 				<h3>déroulement du stage</h3>					
@@ -166,21 +177,43 @@
 				</div>
 			</div>
 		</div>
+		<?php 
+
+			$form_send = false;
+			$mail_recep = 'qmatyas@gmail.com';
+
+			if(isset($_POST['message']) AND isset($_POST['email'])){
+				$objet = $_POST['objet'];
+			    $mail = '';
+
+			    foreach ($_POST as $key => $value) {
+			    	$mail .= $key . ' : ' . $value . PHP_EOL;
+			    }
+
+			    if( wp_mail($mail_recep, $objet, $mail)){
+			    	$form_send = true;
+			    }
+			}
+		?>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				<form>
-				  <div class="form-group">
-				    <label for="inputName">Nom et prénom</label>
-				    <input type="text" class="form-control" id="inputName">
-				    <label for="inputEmail">E-mail</label>
-				    <input type="email" class="form-control" id="inputEmail">
-				    <label for="inputObject">Objet</label>
-				    <input type="text" class="form-control" id="inputObject">
-				    <label for="inputMsg">Message</label>
-				    <textarea type="text" id="inputMsg" class="form-control" rows="5"></textarea>
-				  </div>
-				  <button type="submit" class="btn btn-default">Envoyer</button>
-				</form>
+				<?php if($form_send) : ?>
+						<div class="alert alert-success" role="alert">Merci de votre intérêt. Nous vous recontacterons très prochainement.</div>
+				<?php else : ?>
+					<form>
+					  <div class="form-group">
+					    <label for="inputName">Nom et prénom</label>
+					    <input type="text" class="form-control" id="inputName">
+					    <label for="inputEmail">E-mail</label>
+					    <input type="email" class="form-control" id="inputEmail">
+					    <label for="inputObject">Objet</label>
+					    <input type="text" class="form-control" id="inputObject">
+					    <label for="inputMsg">Message</label>
+					    <textarea type="text" id="inputMsg" class="form-control" rows="5"></textarea>
+					  </div>
+					  <button type="submit" class="btn btn-default">Envoyer</button>
+					</form>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

@@ -24,6 +24,9 @@ h2{
     font-size: 16px;
     font-weight: normal;
 }
+.gray-container{
+    background-color: #F2F1EF;
+}
 
 /*********************** Menu **************************/
 
@@ -164,7 +167,7 @@ a{
 .diplome-filter{
     position: absolute;
     height: 220px;
-    width: 100%;
+    width: 95%;
 }
 .diplome-filter:hover{
     background-color: black;
@@ -209,6 +212,11 @@ a{
 .photo-salle{
     width: 350px;
     height: auto;
+}
+/********************* section date *******************/
+.section-date{
+    width: 100%;
+    background-color: #F2F1EF;
 }
 
 /******************** section contact ***************/
